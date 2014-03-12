@@ -12,13 +12,15 @@
 
 	<properties>
 		<java.version>1.6</java.version>
-		<spring.version>3.1.0.RELEASE</spring.version>
+		<spring.version>4.0.2.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
+        <spring.social.version>1.0.3.RELEASE</spring.social.version>
 	</properties>
 
 	<dependencies>
 		<!-- Spring core & mvc -->
-		<dependency>
+
+        <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
@@ -31,13 +33,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
+			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 
-		<dependency>
+        <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
@@ -45,7 +47,46 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- CGLib for @Configuration -->
+        <!-- Spring Social -->
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>${spring.social.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+            <version>${spring.social.version}</version>
+        </dependency>
+
+        <!-- Spring Social Facebook -->
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>${spring.social.version}</version>
+        </dependency>
+
+        <!-- Spring Social VK -->
+        <dependency>
+            <groupId>com.github.weekens</groupId>
+            <artifactId>spring-social-vkontakte</artifactId>
+            <version>1.1.2.M3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>3.1.0.RC3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
+        <!-- CGLib for @Configuration -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib-nodep</artifactId>
@@ -67,14 +108,34 @@
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+        <!-- MySQL database driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.9</version>
+        </dependency>
+
 	</dependencies>
 
 	<repositories>
-		<repository>
-			<id>springsource-milestones</id>
-			<name>SpringSource Milestones Proxy</name>
-			<url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
-		</repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 	</repositories>
 
 	<build>
@@ -91,4 +152,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
