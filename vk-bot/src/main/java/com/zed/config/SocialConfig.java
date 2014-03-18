@@ -13,9 +13,11 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.vkontakte.connect.VKontakteConnectionFactory;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -25,7 +27,9 @@ import java.net.URLEncoder;
 @Configuration
 public class SocialConfig {
 
-    public static final String USER_ID = "evgeniy.zachateyskiy";
+//    public static final String USER_ID = "evgeniy.zachateyskiy";
+
+    public static final String USER_ID = "id246683286";
 
     @Value("${facebook.app.id}")
     private String facebookAppId;
@@ -33,12 +37,23 @@ public class SocialConfig {
     @Value("${facebook.app.secret}")
     private String facebookAppSecret;
 
+    @Value("${vk.app.id}")
+    private String vkAppId;
+
+    @Value("${vk.app.secret}")
+    private String vkAppSecret;
+
     @Bean
     public ConnectionFactoryLocator connectionFactoryLocator() {
         ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
 
         registry.addConnectionFactory(new FacebookConnectionFactory(facebookAppId,
-                "facebookAppSecret"));
+                facebookAppSecret));
+
+        VKontakteConnectionFactory vKontakteConnectionFactory = new VKontakteConnectionFactory(vkAppId,
+                vkAppSecret);
+        vKontakteConnectionFactory.setScope("wall,offline");
+        registry.addConnectionFactory(vKontakteConnectionFactory);
 
         return registry;
     }
@@ -79,13 +94,21 @@ public class SocialConfig {
             }
         };
 
-        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator(), encryptor);
+//        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator(), encryptor);
+        return new InMemoryUsersConnectionRepository(connectionFactoryLocator());
     }
 
     @Bean
     public ConnectController connectController() {
-        return new ConnectController(connectionFactoryLocator(),
-                connectionRepository());
+        ConnectController controller = new ConnectController(connectionFactoryLocator(), connectionRepository()){
+            @Override
+              public void afterPropertiesSet() throws Exception {
+                super.afterPropertiesSet();
+                this.setApplicationUrl("https://oauth.vk.com/blank.html");
+
+            }
+        };
+        return controller;
     }
 
 

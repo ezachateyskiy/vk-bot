@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Hello VK</title>
+</head>
+<body>
+<h3>Hello, <span th:text="${VKontakteProfile.firstName}">Some User</span>!</h3>
+
+<h4>These are your friends:</h4>
+
+<ul>
+    <li th:each="friend:${friends}" th:text="${friend.firstName}">Friend</li>
+</ul>
+
+<div><a href="/postHelloWorld">Post "Hello, World!"</a></div>
+</body>
+</html>
