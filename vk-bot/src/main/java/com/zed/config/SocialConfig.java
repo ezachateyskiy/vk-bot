@@ -25,24 +25,28 @@ import java.net.URLEncoder;
 @Configuration
 public class SocialConfig {
 
+    public static final String USER_ID = "evgeniy.zachateyskiy";
+
+    @Value("${facebook.app.id}")
+    private String facebookAppId;
+
+    @Value("${facebook.app.secret}")
+    private String facebookAppSecret;
+
     @Bean
     public ConnectionFactoryLocator connectionFactoryLocator() {
         ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
 
-        registry.addConnectionFactory(new FacebookConnectionFactory(Long.toString(647484391955778l),
-                "e5edd85c7cc8d210077e484e23d15371"));
-
+        registry.addConnectionFactory(new FacebookConnectionFactory(facebookAppId,
+                "facebookAppSecret"));
 
         return registry;
     }
 
-    @Inject
-    private Environment environment;
-
     @Bean
     @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public ConnectionRepository connectionRepository() {
-        return usersConnectionRepository().createConnectionRepository("evgeniy.zachateyskiy");
+        return usersConnectionRepository().createConnectionRepository(USER_ID);
     }
 
     @Value("${jdbc.driverClassName}")

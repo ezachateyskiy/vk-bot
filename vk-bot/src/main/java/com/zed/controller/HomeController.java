@@ -1,3 +1,4 @@
+/*
 package com.zed.controller;
 
 import java.io.IOException;
@@ -16,3 +17,4 @@ public class HomeController {
 		return new ModelAndView("home");
 	}
 }
+*/

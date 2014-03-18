@@ -14,7 +14,7 @@
 		<java.version>1.6</java.version>
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
-        <spring.social.version>1.0.3.RELEASE</spring.social.version>
+        <spring.social.version>1.1.0.RC1</spring.social.version>
 	</properties>
 
 	<dependencies>
@@ -60,6 +60,12 @@
             <version>${spring.social.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>${spring.social.version}</version>
+        </dependency>
+
         <!-- Spring Social Facebook -->
         <dependency>
             <groupId>org.springframework.social</groupId>
@@ -77,14 +83,21 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
-            <version>3.1.0.RC3</version>
+            <version>3.2.1.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.1.2</version>
+            <version>4.3.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>2.1.2.RELEASE</version>
+        </dependency>
+
 
         <!-- CGLib for @Configuration -->
 		<dependency>
